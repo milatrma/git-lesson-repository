@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--The main page should be rendered-->
+<!--It should contain a form with two labels, two input fields and a submit button-->
+<!--The form should be submitted to POST /save-link-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<p th:if="${success}" th:text="${success}" style="color: green"></p>
+<p th:if="${error}" th:text="${error}" style="color: red"></p>
+<!--<p th:text="${success}"></p>-->
+<form th:action="@{/save-link}" method="post">
+    <label for="url">URL</label> <br>
+    <input type="url" id="url" name="url" th:placeholder="${url}"> <br>
+
+    <label for="alias">alias</label> <br>
+    <input type="text" id="alias" name="alias" th:placeholder="${alias}"> <br>
+
+    <button type="submit">submit</button>
+
+
+</form>
+
+</body>
+</html>
