@@ -14,4 +14,6 @@ public interface UrlAliaserRepository extends JpaRepository<UrlAliaser, Long> {
 
     Optional<UrlAliaser> findUrlAliaserByAlias(String alias);
 
+//    @Override
+//    List<UrlAliaser> findAll();
 }

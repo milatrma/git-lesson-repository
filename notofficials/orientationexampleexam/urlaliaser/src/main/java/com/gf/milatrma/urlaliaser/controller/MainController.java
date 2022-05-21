@@ -2,13 +2,11 @@ package com.gf.milatrma.urlaliaser.controller;
 
 import com.gf.milatrma.urlaliaser.service.UrlAliaserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Objects;
@@ -56,37 +54,19 @@ public class MainController {
     //    GET /a/{alias}
 //    If the alias exists it should increment the hit count and redirect to the URL otherwise respond with 404 status code
     @GetMapping("/a/{alias}")
-    public String getUrlFromAlias(@PathVariable String alias
-                                  ) {
-//        String gainedUrl = urlAliaserService.getUrlFromAlias(alias);
-//        if (Objects.nonNull(gainedUrl)) {
-////            responseEntity.getStatusCodeValue()
-//            return "redirect:" + gainedUrl;
-//        } else {
-////            responseEntity.getStatusCode(HTTP)
-//            return "redirect:/";
-//        }
-                String gainedUrl = urlAliaserService.getUrlFromAlias(alias);
+//    @ResponseBody
+    public String getUrlFromAlias(@PathVariable String alias,
+                                  RedirectAttributes redirectAttributes
+    ) {
+        String gainedUrl = urlAliaserService.getUrlFromAlias(alias);
         if (Objects.nonNull(gainedUrl)) {
 //            responseEntity.getStatusCodeValue()
             return "redirect:" + gainedUrl;
         } else {
 //            responseEntity.getStatusCode(HTTP)
+            redirectAttributes.addFlashAttribute("error", "404 status code: Not found");
             return "redirect:/";
         }
-
-//        public String getUrlFromAlias(@PathVariable String alias
-//                                  ) {
-//        public ResponseEntity<Assignee> replaceAssignee(@RequestBody Assignee assigneeInput,
-//        @PathVariable long id) {
-//            if (assigneeService.checkAssignee(id)) {
-//                assigneeInput.setId(id);
-//// assigneeService.addAssignee(assigneeInput);
-//                return ResponseEntity.ok(assigneeInput);
-//            } else {
-//// 404
-//                return ResponseEntity.notFound().build();
-//            }
 
 
     }
