@@ -46,12 +46,10 @@ public class UrlAliaserApiController {
 //        If it exists but the provided secret code doesn't match respond with 403 status code
 //        If it exists and the provided secret code matches delete the entry from the database and respond with 204 status code
     @DeleteMapping("/api/links/{id}")
-//    public ResponseEntity<Long> deleteAlias(@PathVariable("id") Long id) {
-    public ResponseEntity<Long> deleteAlias(@PathVariable("id") Long id, @RequestBody UrlAliaserDeleteDto urlAliaserDeleteDto) {
-//    public ResponseEntity<Long> deleteAlias(@PathVariable("id") Long id, @RequestBody UrlAliaserDeleteDto urlAliaserDeleteDto) {
-//        int status = urlAliaserService.getDeleteStatus(id, urlAliaserDeleteDto.getSecretCode());
-        return ResponseEntity.status(202).build();
-//    public Long test (@PathVariable Long id) {
-//        return id;
+    public ResponseEntity<Long> deleteAlias(@PathVariable("id") Long id, @RequestBody (required = false) UrlAliaserDeleteDto urlAliaserDeleteDto) {
+        int status = urlAliaserService.getDeleteStatus(id, urlAliaserDeleteDto);
+        return ResponseEntity.status(status).build();
+
     }
 }
+

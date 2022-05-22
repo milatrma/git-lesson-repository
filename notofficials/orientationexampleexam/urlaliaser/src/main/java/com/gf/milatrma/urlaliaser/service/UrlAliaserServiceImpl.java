@@ -1,12 +1,14 @@
 package com.gf.milatrma.urlaliaser.service;
 
 import com.gf.milatrma.urlaliaser.entity.UrlAliaser;
+import com.gf.milatrma.urlaliaser.entity.UrlAliaserDeleteDto;
 import com.gf.milatrma.urlaliaser.entity.UrlAliaserDto;
 import com.gf.milatrma.urlaliaser.repository.UrlAliaserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -49,25 +51,17 @@ public class UrlAliaserServiceImpl implements UrlAliaserService {
     }
 
     @Override
-    public int getDeleteStatus(Long id, String secretCode) {
+    public int getDeleteStatus(Long id, UrlAliaserDeleteDto urlAliaserDeleteDto) {
         if (urlAliaserRepository.findById(id).isEmpty()) {
             return 404;
         }
-        if (urlAliaserRepository.findById(id).get().getSecretCode().equals(secretCode)) {
-            return 204;
-        } else {
+        Optional<UrlAliaser> urlAliaser = urlAliaserRepository.findById(id);
+        if (!urlAliaser.get().getSecretCode().equals(urlAliaserDeleteDto.getSecretCode())||
+                Objects.isNull(urlAliaserDeleteDto.getSecretCode())) {
             return 403;
+        } else {
+            urlAliaserRepository.deleteById(id);
+            return 202;
         }
-
     }
-//
-//    @Override
-//    public boolean deleteOK(Long id, String secretCode) {
-//        if (urlAliaserRepository.findById(id).isPresent()) {
-//            urlAliaserRepository.deleteById(id);
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 }
