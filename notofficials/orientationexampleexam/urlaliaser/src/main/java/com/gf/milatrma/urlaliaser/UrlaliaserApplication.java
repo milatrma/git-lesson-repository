@@ -9,19 +9,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @RequiredArgsConstructor
-public class UrlaliaserApplication implements CommandLineRunner {
+public class UrlaliaserApplication  {
+//public class UrlaliaserApplication implements CommandLineRunner {
     private final UrlAliaserRepository urlAliaserRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(UrlaliaserApplication.class, args);
     }
 
-    @Override
-    public void run(String... args) throws Exception {
-        UrlAliaser urlAliaser = new UrlAliaser();
-        urlAliaser.setUrl("myUrl");
-        urlAliaser.setAlias("myAlias");
-//        urlAliaserRepository.save(urlAliaser);
-
-    }
 }
